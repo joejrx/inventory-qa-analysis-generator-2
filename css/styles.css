@@ -1,4 +1,39 @@
 body {
     font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    margin: 0;
+    padding: 20px;
 }
-`
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    color: #1f3b63;
+}
+
+.upload-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    background: #1f3b63;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #2b528c;
+}
+
+#results {
+    margin-top: 20px;
+}
