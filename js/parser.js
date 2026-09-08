@@ -37,6 +37,11 @@ function readExcelFile(file) {
         const rows = XLSX.utils.sheet_to_json(worksheet);
 
         const summary = calculateSummary(rows);
+        const rootCauseCounts =
+    getRootCauseCounts(rows);
+
+const topRootCause =
+    getTopRootCause(rootCauseCounts);
 
         document.getElementById("results").innerHTML = `
 
@@ -63,7 +68,10 @@ function readExcelFile(file) {
 <p><strong>Resolution Rate:</strong>
     ${summary.resolutionRate}%
 </p>
-            </p>
+<p><strong>Top Root Cause:</strong>
+    ${topRootCause}
+</p>
+         
 
         `;
 
