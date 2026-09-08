@@ -22,7 +22,7 @@ function readExcelFile(file) {
 
     const reader = new FileReader();
 
-    reader.onload = function(e) {
+    reader.onload = function (e) {
 
         const data = new Uint8Array(e.target.result);
 
@@ -30,14 +30,11 @@ function readExcelFile(file) {
             type: "array"
         });
 
-        const firstSheetName =
-            workbook.SheetNames[0];
+        const firstSheetName = workbook.SheetNames[0];
 
-        const worksheet =
-            workbook.Sheets[firstSheetName];
+        const worksheet = workbook.Sheets[firstSheetName];
 
-        const rows =
-            XLSX.utils.sheet_to_json(worksheet);
+        const rows = XLSX.utils.sheet_to_json(worksheet);
 
         document.getElementById("results").innerHTML = `
             <h2>Workbook Loaded</h2>
