@@ -20,9 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function readExcelFile(file) {
 
+    alert("Starting readExcelFile");
+
     const reader = new FileReader();
 
     reader.onload = function (e) {
+
+        alert("File loaded");
 
         const data = new Uint8Array(e.target.result);
 
@@ -30,56 +34,22 @@ function readExcelFile(file) {
             type: "array"
         });
 
+        alert("Workbook opened");
+
         const firstSheetName = workbook.SheetNames[0];
 
         const worksheet = workbook.Sheets[firstSheetName];
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
 
+        alert(`Rows Found: ${rows.length}`);
+
         const summary = calculateSummary(rows);
 
-        const rootCauseCounts =
-            getRootCauseCounts(rows);
+        alert("Summary calculated");
 
-        const topRootCause =
-            getTopRootCause(rootCauseCounts);
-
-        document.getElementById("results").innerHTML = `
-
-            <h2>Executive Summary</h2>
-
-            <p><strong>Total Discrepancies:</strong>
-                ${summary.totalDiscrepancies}
-            </p>
-
-            <p><strong>Shortages:</strong>
-                ${summary.shortages}
-            </p>
-
-            <p><strong>Overages:</strong>
-                ${summary.overages}
-            </p>
-
-            <p><strong>Resolved:</strong>
-                ${summary.resolved}
-            </p>
-
-            <p><strong>Open:</strong>
-                ${summary.open}
-            </p>
-
-            <p><strong>Resolution Rate:</strong>
-                ${summary.resolutionRate}%
-            </p>
-
-            <p><strong>Top Root Cause:</strong>
-                ${topRootCause}
-            </p>
-
-        `;
-
-        console.log(rows);
-        console.log(summary);
+        document.getElementById("results").innerHTML =
+            "<h2>TEST SUCCESS</h2>";
 
     };
 
