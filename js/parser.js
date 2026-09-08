@@ -56,6 +56,13 @@ function readExcelFile(file) {
 
             <p><strong>Resolved:</strong>
                 ${summary.resolved}
+                <p><strong>Open:</strong>
+    ${summary.open}
+</p>
+
+<p><strong>Resolution Rate:</strong>
+    ${summary.resolutionRate}%
+</p>
             </p>
 
         `;
