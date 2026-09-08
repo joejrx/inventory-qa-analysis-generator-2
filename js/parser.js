@@ -36,15 +36,35 @@ function readExcelFile(file) {
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
 
+        const summary = calculateSummary(rows);
+
         document.getElementById("results").innerHTML = `
-            <h2>Workbook Loaded</h2>
-            <p><strong>Sheet:</strong> ${firstSheetName}</p>
-            <p><strong>Records:</strong> ${rows.length}</p>
+
+            <h2>Executive Summary</h2>
+
+            <p><strong>Total Discrepancies:</strong>
+                ${summary.totalDiscrepancies}
+            </p>
+
+            <p><strong>Shortages:</strong>
+                ${summary.shortages}
+            </p>
+
+            <p><strong>Overages:</strong>
+                ${summary.overages}
+            </p>
+
+            <p><strong>Resolved:</strong>
+                ${summary.resolved}
+            </p>
+
         `;
 
         console.log(rows);
+        console.log(summary);
 
     };
 
     reader.readAsArrayBuffer(file);
+
 }
