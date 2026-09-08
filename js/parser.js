@@ -12,9 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        alert("Parser loaded successfully.");
+        const results = document.getElementById("results");
 
-        console.log(file.name);
+        results.innerHTML = `
+            <h2>File Loaded</h2>
+            <p><strong>File Name:</strong> ${file.name}</p>
+            <p><strong>File Size:</strong> ${Math.round(file.size / 1024)} KB</p>
+        `;
 
     });
 
