@@ -8,43 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const file = fileInput.files[0];
 
         if (!file) {
-            alert("Please select a file.");
+            alert("Please select an Excel file.");
             return;
         }
 
-        readExcelFile(file);
+        alert("Parser loaded successfully.");
+
+        console.log(file.name);
 
     });
 
 });
-
-function readExcelFile(file) {
-
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-
-        const data = new Uint8Array(e.target.result);
-
-        const workbook = XLSX.read(data, {
-            type: "array"
-        });
-
-        const firstSheet =
-            workbook.SheetNames[0];
-
-        const worksheet =
-            workbook.Sheets[firstSheet];
-
-        const rows =
-            XLSX.utils.sheet_to_json(worksheet);
-
-        console.log(rows);
-
-        document.getElementById("results")
-            .innerHTML =
-            `<pre>${JSON.stringify(rows, null, 2)}</pre>`;
-    };
-
-    reader.readAsArrayBuffer(file);
-}
