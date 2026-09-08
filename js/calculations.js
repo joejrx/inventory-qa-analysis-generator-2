@@ -1,32 +1,5 @@
 function calculateSummary(rows) {
-    function getRootCauseCounts(rows) {
 
-    const counts = {};
-
-    rows.forEach(row => {
-
-        const cause =
-            row["Root Cause Category"] || "Unknown";
-
-        counts[cause] =
-            (counts[cause] || 0) + 1;
-
-    });
-
-    return counts;
-
-}
-function getTopRootCause(rootCauseCounts) {
-
-    const sorted =
-        Object.entries(rootCauseCounts)
-            .sort((a, b) => b[1] - a[1]);
-
-    return sorted.length > 0
-        ? sorted[0][0]
-        : "None";
-
-}
     const totalDiscrepancies = rows.length;
 
     const shortages = rows.filter(
@@ -56,5 +29,35 @@ function getTopRootCause(rootCauseCounts) {
         open,
         resolutionRate
     };
+
+}
+
+function getRootCauseCounts(rows) {
+
+    const counts = {};
+
+    rows.forEach(row => {
+
+        const cause =
+            row["Root Cause Category"] || "Unknown";
+
+        counts[cause] =
+            (counts[cause] || 0) + 1;
+
+    });
+
+    return counts;
+
+}
+
+function getTopRootCause(rootCauseCounts) {
+
+    const sorted =
+        Object.entries(rootCauseCounts)
+            .sort((a, b) => b[1] - a[1]);
+
+    return sorted.length > 0
+        ? sorted[0][0]
+        : "None";
 
 }
