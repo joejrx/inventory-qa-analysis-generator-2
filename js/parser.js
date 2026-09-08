@@ -20,13 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function readExcelFile(file) {
 
-    alert("Starting readExcelFile");
-
     const reader = new FileReader();
 
     reader.onload = function (e) {
-
-        alert("File loaded");
 
         const data = new Uint8Array(e.target.result);
 
@@ -34,22 +30,37 @@ function readExcelFile(file) {
             type: "array"
         });
 
-        alert("Workbook opened");
-
         const firstSheetName = workbook.SheetNames[0];
 
         const worksheet = workbook.Sheets[firstSheetName];
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
 
-        alert(`Rows Found: ${rows.length}`);
-
         const summary = calculateSummary(rows);
 
-        alert("Summary calculated");
+        const rootCauseCounts =
+            getRootCauseCounts(rows);
 
-        document.getElementById("results").innerHTML =
-            "<h2>TEST SUCCESS</h2>";
+        const topRootCause =
+            getTopRootCause(rootCauseCounts);
+
+        document.getElementById("results").innerHTML = `
+            <h2>Executive Summary</h2>
+
+            <p>Total Discrepancies: ${summary.totalDiscrepancies}</p>
+
+            <p>Shortages: ${summary.shortages}</p>
+
+            <p>Overages: ${summary.overages}</p>
+
+            <p>Resolved: ${summary.resolved}</p>
+
+            <p>Open: ${summary.open}</p>
+
+            <p>Resolution Rate: ${summary.resolutionRate}%</p>
+
+            <p>Top Root Cause: ${topRootCause}</p>
+        `;
 
     };
 
