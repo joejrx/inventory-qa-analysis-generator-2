@@ -12,14 +12,42 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const results = document.getElementById("results");
-
-        results.innerHTML = `
-            <h2>File Loaded</h2>
-            <p><strong>File Name:</strong> ${file.name}</p>
-            <p><strong>File Size:</strong> ${Math.round(file.size / 1024)} KB</p>
-        `;
+        readExcelFile(file);
 
     });
 
 });
+
+function readExcelFile(file) {
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        const data = new Uint8Array(e.target.result);
+
+        const workbook = XLSX.read(data, {
+            type: "array"
+        });
+
+        const firstSheetName =
+            workbook.SheetNames[0];
+
+        const worksheet =
+            workbook.Sheets[firstSheetName];
+
+        const rows =
+            XLSX.utils.sheet_to_json(worksheet);
+
+        document.getElementById("results").innerHTML = `
+            <h2>Workbook Loaded</h2>
+            <p><strong>Sheet:</strong> ${firstSheetName}</p>
+            <p><strong>Records:</strong> ${rows.length}</p>
+        `;
+
+        console.log(rows);
+
+    };
+
+    reader.readAsArrayBuffer(file);
+}
