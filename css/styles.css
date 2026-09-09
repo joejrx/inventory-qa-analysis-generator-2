@@ -1,39 +1,37 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f5f6f8;
-    margin: 0;
     padding: 20px;
+    background: #f4f6f8;
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-}
-
-h1 {
+h1, h2 {
     color: #1f3b63;
 }
 
-.upload-card {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-button {
-    background: #1f3b63;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background: #2b528c;
-}
-
-#results {
+.kpi-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     margin-top: 20px;
 }
+
+.kpi-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 220px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.kpi-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.kpi-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1f3b63;
+}
+``
