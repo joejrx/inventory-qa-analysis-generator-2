@@ -35,6 +35,7 @@ function readExcelFile(file) {
         const worksheet = workbook.Sheets[firstSheetName];
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
+        console.log(rows);
 
         const summary = calculateSummary(rows);
 
