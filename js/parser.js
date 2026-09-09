@@ -35,20 +35,26 @@ function readExcelFile(file) {
         const worksheet = workbook.Sheets[firstSheetName];
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
+        const selectedStore =
+    document.getElementById("storeSelect").value;
+        const filteredRows =
+    rows.filter(
+        row => row["Store Name"] === selectedStore
+    );
 
-        const summary = calculateSummary(rows);
+        const summary = calculateSummary(filteredRows)
 
         const rootCauseCounts =
-            getRootCauseCounts(rows);
+           getRootCauseCounts(filteredRows);
 
         const topRootCause =
             getTopRootCause(rootCauseCounts);
 
         const storeName =
-            getStoreName(rows);
+            selectedStore;
 
         const reviewPeriod =
-            getReviewPeriod(rows);
+          getReviewPeriod(filteredRows);
 
         const sortedRootCauses =
             Object.entries(rootCauseCounts)
