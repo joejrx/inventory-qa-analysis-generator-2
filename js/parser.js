@@ -41,7 +41,7 @@ function readExcelFile(file) {
     rows.filter(
         row => row["Store Name"] === selectedStore
     );
-
+console.log(filteredRows);
         const summary = calculateSummary(filteredRows)
 
         const rootCauseCounts =
