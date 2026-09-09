@@ -34,15 +34,33 @@ function calculateSummary(rows) {
 
 function getRootCauseCounts(rows) {
 
-    const counts = {};
+    const counts = {
+
+        "Dispensing Error": 0,
+        "Product Misplaced": 0,
+        "Product Left at POS / Window": 0,
+        "Product Swap": 0,
+        "Quarantine Documentation": 0,
+        "Destruction Documentation": 0,
+        "End of Day Closing Error": 0,
+        "Inventory Count Error": 0,
+        "Receiving Error": 0,
+        "Transfer Error": 0,
+        "Dutchie / METRC Mismatch": 0,
+        "Network / Offline Transaction Issue": 0,
+        "Patient Return / Exchange Correction": 0,
+        "Unknown Cause": 0,
+        "Other": 0
+
+    };
 
     rows.forEach(row => {
 
-        const cause =
-            row["Root Cause Category"] || "Unknown";
+        const cause = row["Root Cause Category"];
 
-        counts[cause] =
-            (counts[cause] || 0) + 1;
+        if (cause && counts.hasOwnProperty(cause)) {
+            counts[cause]++;
+        }
 
     });
 
@@ -52,12 +70,4 @@ function getRootCauseCounts(rows) {
 
 function getTopRootCause(rootCauseCounts) {
 
-    const sorted =
-        Object.entries(rootCauseCounts)
-            .sort((a, b) => b[1] - a[1]);
-
-    return sorted.length > 0
-        ? sorted[0][0]
-        : "None";
-
-}
+    const
