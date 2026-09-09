@@ -70,4 +70,12 @@ function getRootCauseCounts(rows) {
 
 function getTopRootCause(rootCauseCounts) {
 
-    const
+    const sorted =
+        Object.entries(rootCauseCounts)
+            .sort((a, b) => b[1] - a[1]);
+
+    return sorted.length > 0
+        ? sorted[0][0]
+        : "None";
+
+}
