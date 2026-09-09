@@ -81,19 +81,25 @@ function getTopRootCause(rootCauseCounts) {
 }
 function getStoreName(rows) {
 
-    const stores =
-        [...new Set(
-            rows
-                .map(row => row["Store Name"])
-                .filter(Boolean)
-        )];
+    const counts = {};
 
-    if (stores.length === 1) {
-        return stores[0];
-    }
+    rows.forEach(row => {
 
-    return stores.length > 1
-        ? "Multiple Stores"
+        const store = row["Store Name"];
+
+        if (!store) return;
+
+        counts[store] =
+            (counts[store] || 0) + 1;
+
+    });
+
+    const sorted =
+        Object.entries(counts)
+            .sort((a, b) => b[1] - a[1]);
+
+    return sorted.length > 0
+        ? sorted[0][0]
         : "Unknown Store";
 
 }
