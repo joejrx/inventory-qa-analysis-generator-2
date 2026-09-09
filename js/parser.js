@@ -67,6 +67,75 @@ function readExcelFile(file) {
 
         });
 
+        let findingsHtml = "";
+
+        const topThree =
+            sortedRootCauses
+                .filter(item => item[1] > 0)
+                .slice(0, 3);
+
+        topThree.forEach(([cause, count], index) => {
+
+            let recommendation =
+                "Continue monitoring this category.";
+
+            switch (cause) {
+
+                case "Dispensing Error":
+                    recommendation =
+                        "Review transaction verification procedures and product confirmation practices.";
+                    break;
+
+                case "Product Swap":
+                    recommendation =
+                        "Reinforce scan verification and final product review procedures.";
+                    break;
+
+                case "Quarantine Documentation":
+                    recommendation =
+                        "Review quarantine workflow and documentation requirements.";
+                    break;
+
+                case "Inventory Count Error":
+                    recommendation =
+                        "Review inventory count procedures and verification practices.";
+                    break;
+
+                case "Network / Offline Transaction Issue":
+                    recommendation =
+                        "Review outage recovery and transaction synchronization procedures.";
+                    break;
+
+                case "Patient Return / Exchange Correction":
+                    recommendation =
+                        "Review exchange and correction procedures with staff.";
+                    break;
+
+            }
+
+            findingsHtml += `
+                <div class="finding-card">
+
+                    <h3>
+                        Finding #${index + 1}
+                    </h3>
+
+                    <p>
+                        <strong>${cause}</strong> accounted for
+                        <strong>${count}</strong>
+                        discrepancies during the review period.
+                    </p>
+
+                    <p>
+                        <strong>Recommendation:</strong>
+                        ${recommendation}
+                    </p>
+
+                </div>
+            `;
+
+        });
+
         document.getElementById("results").innerHTML = `
 
             <div class="report-banner">
@@ -144,6 +213,12 @@ function readExcelFile(file) {
                 </tbody>
 
             </table>
+
+            <h2 style="margin-top:40px;">
+                Findings & Observations
+            </h2>
+
+            ${findingsHtml}
 
         `;
 
