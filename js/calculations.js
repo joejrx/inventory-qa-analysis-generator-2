@@ -72,13 +72,14 @@ function getTopRootCause(rootCauseCounts) {
 
     const sorted =
         Object.entries(rootCauseCounts)
-            .sort((a, b) => b[1] - a[1]);
+        .sort((a, b) => b[1] - a[1]);
 
     return sorted.length > 0
         ? sorted[0][0]
         : "None";
 
 }
+
 function getStoreName(rows) {
 
     const counts = {};
@@ -96,7 +97,7 @@ function getStoreName(rows) {
 
     const sorted =
         Object.entries(counts)
-            .sort((a, b) => b[1] - a[1]);
+        .sort((a, b) => b[1] - a[1]);
 
     return sorted.length > 0
         ? sorted[0][0]
@@ -106,13 +107,47 @@ function getStoreName(rows) {
 
 function getReviewPeriod(rows) {
 
-    const dates = rows
-        .map(row => new Date(row["Date Identified"]))
-        .filter(date => !isNaN(date));
+    const dates = [];
+
+    rows.forEach(row => {
+
+        const value = row["Date Identified"];
+
+        if (!value) return;
+
+        if (typeof value === "number") {
+
+            const excelEpoch =
+                new Date(Date.UTC(1899, 11, 30));
+
+            const jsDate =
+                new Date(
+                    excelEpoch.getTime() +
+                    value * 86400000
+                );
+
+            dates.push(jsDate);
+
+        }
+
+        else {
+
+            const jsDate =
+                new Date(value);
+
+            if (!isNaN(jsDate)) {
+                dates.push(jsDate);
+            }
+
+        }
+
+    });
 
     if (dates.length === 0) {
         return "Unknown Period";
     }
+
+    dates.sort((a, b) => a - b);
 
     const firstDate = dates[0];
 
