@@ -44,6 +44,12 @@ function readExcelFile(file) {
         const topRootCause =
             getTopRootCause(rootCauseCounts);
 
+        const storeName =
+            getStoreName(rows);
+
+        const reviewPeriod =
+            getReviewPeriod(rows);
+
         let rootCauseHtml = "";
 
         Object.entries(rootCauseCounts).forEach(([cause, count]) => {
@@ -58,6 +64,27 @@ function readExcelFile(file) {
         });
 
         document.getElementById("results").innerHTML = `
+
+            <div class="report-banner">
+
+                <h2>Inventory Discrepancy QA Review</h2>
+
+                <p>
+                    <strong>Store:</strong>
+                    ${storeName}
+                </p>
+
+                <p>
+                    <strong>Review Period:</strong>
+                    ${reviewPeriod}
+                </p>
+
+                <p>
+                    <strong>Records Reviewed:</strong>
+                    ${summary.totalDiscrepancies}
+                </p>
+
+            </div>
 
             <h2>Executive Dashboard</h2>
 
