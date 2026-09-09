@@ -45,21 +45,43 @@ function readExcelFile(file) {
             getTopRootCause(rootCauseCounts);
 
         document.getElementById("results").innerHTML = `
-            <h2>Executive Summary</h2>
 
-            <p>Total Discrepancies: ${summary.totalDiscrepancies}</p>
+            <h2>Executive Dashboard</h2>
 
-            <p>Shortages: ${summary.shortages}</p>
+            <div class="kpi-container">
 
-            <p>Overages: ${summary.overages}</p>
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Discrepancies</div>
+                    <div class="kpi-value">${summary.totalDiscrepancies}</div>
+                </div>
 
-            <p>Resolved: ${summary.resolved}</p>
+                <div class="kpi-card">
+                    <div class="kpi-label">Shortages</div>
+                    <div class="kpi-value">${summary.shortages}</div>
+                </div>
 
-            <p>Open: ${summary.open}</p>
+                <div class="kpi-card">
+                    <div class="kpi-label">Overages</div>
+                    <div class="kpi-value">${summary.overages}</div>
+                </div>
 
-            <p>Resolution Rate: ${summary.resolutionRate}%</p>
+                <div class="kpi-card">
+                    <div class="kpi-label">Open Items</div>
+                    <div class="kpi-value">${summary.open}</div>
+                </div>
 
-            <p>Top Root Cause: ${topRootCause}</p>
+                <div class="kpi-card">
+                    <div class="kpi-label">Resolution Rate</div>
+                    <div class="kpi-value">${summary.resolutionRate}%</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Top Root Cause</div>
+                    <div class="kpi-value">${topRootCause}</div>
+                </div>
+
+            </div>
+
         `;
 
     };
