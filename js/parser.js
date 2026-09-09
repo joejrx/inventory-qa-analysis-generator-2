@@ -44,6 +44,19 @@ function readExcelFile(file) {
         const topRootCause =
             getTopRootCause(rootCauseCounts);
 
+        let rootCauseHtml = "";
+
+        Object.entries(rootCauseCounts).forEach(([cause, count]) => {
+
+            rootCauseHtml += `
+                <tr>
+                    <td>${cause}</td>
+                    <td>${count}</td>
+                </tr>
+            `;
+
+        });
+
         document.getElementById("results").innerHTML = `
 
             <h2>Executive Dashboard</h2>
@@ -81,6 +94,25 @@ function readExcelFile(file) {
                 </div>
 
             </div>
+
+            <h2 style="margin-top:40px;">
+                Root Cause Analysis
+            </h2>
+
+            <table class="root-cause-table">
+
+                <thead>
+                    <tr>
+                        <th>Root Cause</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    ${rootCauseHtml}
+                </tbody>
+
+            </table>
 
         `;
 
