@@ -35,7 +35,6 @@ function readExcelFile(file) {
         const worksheet = workbook.Sheets[firstSheetName];
 
         const rows = XLSX.utils.sheet_to_json(worksheet);
-        console.log(rows);
 
         const summary = calculateSummary(rows);
 
@@ -51,9 +50,13 @@ function readExcelFile(file) {
         const reviewPeriod =
             getReviewPeriod(rows);
 
+        const sortedRootCauses =
+            Object.entries(rootCauseCounts)
+                .sort((a, b) => b[1] - a[1]);
+
         let rootCauseHtml = "";
 
-        Object.entries(rootCauseCounts).forEach(([cause, count]) => {
+        sortedRootCauses.forEach(([cause, count]) => {
 
             rootCauseHtml += `
                 <tr>
