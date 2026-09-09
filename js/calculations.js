@@ -79,3 +79,43 @@ function getTopRootCause(rootCauseCounts) {
         : "None";
 
 }
+function getStoreName(rows) {
+
+    const stores =
+        [...new Set(
+            rows
+                .map(row => row["Store Name"])
+                .filter(Boolean)
+        )];
+
+    if (stores.length === 1) {
+        return stores[0];
+    }
+
+    return stores.length > 1
+        ? "Multiple Stores"
+        : "Unknown Store";
+
+}
+
+function getReviewPeriod(rows) {
+
+    const dates = rows
+        .map(row => new Date(row["Date Identified"]))
+        .filter(date => !isNaN(date));
+
+    if (dates.length === 0) {
+        return "Unknown Period";
+    }
+
+    const firstDate = dates[0];
+
+    return firstDate.toLocaleDateString(
+        "en-US",
+        {
+            month: "long",
+            year: "numeric"
+        }
+    );
+
+}
